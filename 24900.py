@@ -84,6 +84,6 @@ print("Valores únicos en 'descripcion':", df['descripcion'].unique())
 print("Valores únicos en 'quintil':", df['quintil'].unique())
 
 # Guarda el DataFrame en un CSV
-df.to_csv('datos_ine_24900_legible_new.csv', index=False)
+df.to_csv('datos_ine_tabla_24900_legible.csv', index=False)
 
 
