@@ -2,8 +2,15 @@
 # Se basa en la Encuesta de Presupuestos Familiares y ofrece información sobre el gasto medio por hogar y por persona, así como su distribución.
 # Esta tabla es fundamental para entender los patrones de consumo y la estructura del gasto en España, 
 # permitiendo análisis económicos y sociales más profundos.
+# https://www.ine.es/jaxiT3/Tabla.htm?t=24900   ### NO LA HE PROBADO AUN
+# https://servicios.ine.es/wstempus/js/ES/DATOS_TABLA/24900
+# Importar las librerías necesarias
+# requests para hacer la petición a la API
 import requests
+# pandas para manejar los datos en formato DataFrame
 import pandas as pd
+# Para mostrar los datos de forma legible
+# json para manejar datos en formato JSON
 import json
 
 # URL de la API del INE para la tabla 24900
@@ -21,7 +28,12 @@ if response.status_code == 200:
 else:
     print(f"Error al acceder a la API: {response.status_code}")
 
+# Mostrar la estructura de los datos recibidos
+print(f"Tipo de dato recibido: {type(data)}")
+print(f"Número de elementos en la lista: {len(data)}")
+# Mostrar las claves del primer elemento para entender la estructura
 print(data[0].keys())
+# Mostrar el primer elemento para ver un ejemplo de los datos
 print(data[0])
 
 # Mostrar los primeros elementos con formato.
