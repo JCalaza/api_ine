@@ -52,13 +52,11 @@ print(df.head())
 # Procesar los datos para obtener un DataFrame legible
 # Dividir el campo 'Nombre' en varias columnas
 df['Nombre'] = df.index
-#df[['indice', 'dato', 'tipo_dato', 'descripcion', 'quintil']] = df['Nombre'].str.split('.', expand=True)
-# ...existing code...
+# Dividir en 5 partes: 'indice', 'dato', 'tipo_dato', 'descripcion', 'quintil'
 df[['indice', 'dato', 'tipo_dato', 'descripcion', 'quintil']] = df['Nombre'].str.split('.', n=4, expand=True)
 # Limpiar los valores de 'quintil' para eliminar puntos al final y reemplazar valores vacíos por None
 df['quintil'] = df['quintil'].str.strip('.').replace('', None)
 
-# ...existing code...
 # Eliminar la columna 'Nombre' original
 df.drop(columns=['Nombre'], inplace=True)
 # Reordenar las columnas
@@ -69,21 +67,8 @@ df.rename(columns={'Anyo': 'anyo', 'Valor': 'valor', 'Secreto': 'secreto'}, inpl
 # Muestra las primeras filas
 print(df.head())
 
-# Ver los distintos valores de las columnas
-print("Valores únicos en 'indice':", df['indice'].unique())
-print("Valores únicos en 'dato':", df['dato'].unique())
-print("Valores únicos en 'tipo_dato':", df['tipo_dato'].unique())
-print("Valores únicos en 'descripcion':", df['descripcion'].unique())   
-print("Valores únicos en 'quintil':", df['quintil'].unique())
-
-#######################################
-# Guarda el DataFrame en un CSV
-df.to_csv('datos_ine_24900_legible_new.csv', index=False)
-
 # Mostrar información del DataFrame
 print(df.info())
-# Mostrar estadísticas descriptivas del DataFrame
-#print(df.describe())
 # Mostrar las columnas del DataFrame
 print(df.columns)
 # Mostrar el número de filas y columnas del DataFrame
@@ -91,29 +76,14 @@ print(f"Número de filas: {df.shape[0]}, Número de columnas: {df.shape[1]}")
 # Mostrar los tipos de datos de las columnas    
 print(df.dtypes)
 
-# Comprobar que la suma de descripcion = "Distribución (porcentajes verticales)" para el año 2022 es 100%
-df['valor'] = pd.to_numeric(df['valor'], errors='coerce')  # Asegurarse de que los valores son numéricos
-df['anyo'] = pd.to_numeric(df['anyo'], errors='coerce')  # Asegurarse de que los años son numéricos
-df_2022 = df[df['anyo'] == 2022]
-# Quitar de la suma dato = "Índice general"
-df_2022 = df_2022[df_2022['dato'] != 'Índice general']
-# Imprimir df_2022 para verificar
-print(df_2022)
-# Filtrar por el quintil = "Total"
-df_2022 = df_2022[df_2022['quintil'] == 'Total']
-# Imprimir df_2022 para verificar
-print(df_2022)
-# Filtrar por la descripción "Distribución (porcentajes verticales)"
-df_2022 = df_2022[df_2022['descripcion'] == 'Distribución (porcentajes verticales)']
-# Imprimir df_2022 para verificar
-print(df_2022)
+# Ver los distintos valores de las columnas
+print("Valores únicos en 'indice':", df['indice'].unique())
+print("Valores únicos en 'dato':", df['dato'].unique())
+print("Valores únicos en 'tipo_dato':", df['tipo_dato'].unique())
+print("Valores únicos en 'descripcion':", df['descripcion'].unique())   
+print("Valores únicos en 'quintil':", df['quintil'].unique())
 
-# Calcular la suma de la columna 'valor'
-suma_valores_2022 = df_2022['valor'].sum()
-print(f"Suma de valores para el año 2022: {suma_valores_2022}")
+# Guarda el DataFrame en un CSV
+df.to_csv('datos_ine_24900_legible_new.csv', index=False)
 
-# Comprobar si la suma es 100%
-if suma_valores_2022 == 100:
-    print("La suma de la descripción 'Distribución (porcentajes verticales)' para el año 2022 es 100%.")
-else:
-    print("La suma de la descripción 'Distribución (porcentajes verticales)' para el año 2022 NO es 100%.")
+
